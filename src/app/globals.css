@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+/* Dark mode is toggled with a `.dark` class on <html> (light is the default). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-royal-50: #f6f1ff;
+  --color-royal-100: #ece2ff;
+  --color-royal-200: #d9c6ff;
+  --color-royal-300: #bc9bff;
+  --color-royal-400: #9d6bf7;
+  --color-royal-500: #7f3ff0;
+  --color-royal-600: #6b2bd6;
+  --color-royal-700: #5821ae;
+  --color-royal-800: #451b87;
+  --color-royal-900: #321466;
+  --color-royal-950: #1d0b40;
+
+  --color-gold-200: #fde68a;
+  --color-gold-300: #fcd34d;
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #f59e0b;
+  --color-gold-600: #b45309;
+
+  --font-display: var(--font-fredoka), var(--font-noto-tamil), var(--font-noto-deva), ui-rounded,
+    system-ui, sans-serif;
+  --font-sans: var(--font-inter), var(--font-noto-tamil), var(--font-noto-deva), system-ui,
+    sans-serif;
+
+  --animate-wobble: wobble 1.2s ease-in-out infinite;
+  --animate-twinkle: twinkle 2.4s ease-in-out infinite;
+  --animate-float: float 4s ease-in-out infinite;
+
+  @keyframes wobble {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    25% { transform: rotate(-6deg) translateY(-4px); }
+    75% { transform: rotate(6deg) translateY(-4px); }
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.25; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+.dark {
+  color-scheme: dark;
+}
+
+body {
+  @apply min-h-screen bg-gradient-to-br from-royal-50 via-white to-teal-50 font-sans text-slate-800 antialiased;
+  @apply dark:from-royal-950 dark:via-[#140a2e] dark:to-[#06232a] dark:text-slate-100;
+  background-attachment: fixed;
+}
+
+h1, h2, h3, .font-display {
+  @apply font-display;
+}
+
+@utility btn {
+  @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-2xl px-5 py-2.5 font-semibold transition
+    focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-teal-500
+    disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-gradient-to-r from-royal-600 to-royal-500 text-white shadow-lg shadow-royal-500/25
+    hover:from-royal-700 hover:to-royal-600 active:scale-[0.98];
+}
+@utility btn-teal {
+  @apply btn bg-teal-700 text-white shadow-md hover:bg-teal-800 active:scale-[0.98];
+}
+@utility btn-secondary {
+  @apply btn border border-royal-200 bg-white/80 text-royal-800 hover:bg-royal-50
+    dark:border-royal-700 dark:bg-royal-900/60 dark:text-royal-100 dark:hover:bg-royal-800;
+}
+@utility btn-ghost {
+  @apply btn text-royal-700 hover:bg-royal-100/70 dark:text-royal-200 dark:hover:bg-royal-800/60;
+}
+@utility card {
+  @apply rounded-2xl border border-royal-100 bg-white/85 shadow-md shadow-royal-900/5 backdrop-blur
+    dark:border-royal-800 dark:bg-royal-950/70 dark:shadow-black/30;
+}
+@utility input {
+  @apply min-h-11 w-full rounded-xl border border-royal-200 bg-white px-3 py-2 text-slate-900
+    placeholder:text-slate-500 focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-teal-500
+    dark:border-royal-700 dark:bg-royal-900 dark:text-slate-100 dark:placeholder:text-slate-400;
+}
+@utility label {
+  @apply mb-1 block text-sm font-semibold text-royal-900 dark:text-royal-100;
+}
+@utility muted {
+  @apply text-slate-600 dark:text-slate-300;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
